@@ -150,4 +150,26 @@ public class ChatUtil {
     	
     	
     }
+    public List<Message> getMessages() throws IOException{
+		
+		
+		List<Message> messages = new ArrayList<>();
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> entity = new HttpEntity<>(headers);
+		
+		String resp = restTemplate.exchange("http://localhost:1337/api/messages?populate=*",
+				HttpMethod.GET,entity,String.class).getBody();
+		
+		if(resp!=null && !resp.isEmpty()) {
+			
+			messages = mapJsonToMessages(resp);
+		}	
+		return messages;
+		
+		
+	}
+    
+    
 }

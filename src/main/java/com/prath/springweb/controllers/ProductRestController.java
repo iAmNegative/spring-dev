@@ -1,5 +1,6 @@
 package com.prath.springweb.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prath.springweb.entities.Message;
 import com.prath.springweb.entities.Product;
+import com.prath.springweb.repos.ChatUtil;
 import com.prath.springweb.repos.ProductRepository;
 
 @RestController
@@ -17,6 +20,9 @@ public class ProductRestController {
 
 	@Autowired
 	ProductRepository repository;
+	
+	@Autowired
+	ChatUtil chatUtil; 
 	
 	@RequestMapping(value="/products/",method=RequestMethod.GET)
  public List<Product> getProducts(){
@@ -42,5 +48,14 @@ public class ProductRestController {
 	public void DeleteProduct(@PathVariable("id") int id) {
 		repository.deleteById(id);
 	}
+	
+//	@RequestMapping(value="/get/all/messages/",method=RequestMethod.GET)
+//	public List<Message> getMessage() throws IOException
+//	{
+//		
+//		return chatUtil.getMessages();
+//	}
+	
+	
 	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import com.prath.springweb.repos.ChatUtil;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ChatController {
 
 	private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
@@ -40,4 +42,10 @@ public class ChatController {
 		logger.info(user.getJwt());
 			return chatUtil.getUsersMessage(user1,user2,user.getJwt());
 		}
+	@RequestMapping(value="/get/all/messages/{jwt}",method=RequestMethod.GET)
+	public List<Message> getMessage( @PathVariable String jwt) throws IOException
+	{
+		
+		return chatUtil.getMessages( jwt);
+	}
 }
